@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-include('./templates/header.ejs')%>
+ </head>
+
+<body>
+  <%-include('./templates/navegation.ejs')%>
+  <div class="container mt-3">
+    <center><h1><%=  %></h1></center>
+    <p>Muestra, edita los productos y elimina productos:</p>
+      <%if(data.length > 0){%>
+        <table class="table">
+          <thead class="table-success">
+            <tr>
+              <th>ID</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Color</th>
+              <th>Talla</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <% data.forEach(function (product) { %>
+          <tbody>
+            <tr style="vertical-align: middle;">
+              <td><%= product.ID %></td>
+              <td><%= product.Brand %></td>
+              <td><%= product.Model %></td>
+              <td><%= product.Color %></td>
+              <td><%= product.Size %></td>
+              <td><%= product.Price %></td>
+              <td>
+                <a href="/modify/<%= product.id %>" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                <form action="/delete/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+              </form>                
+              </td>
+            </tr>
+          </tbody>
+          <% }) %>
+        </table>
+      <%} else {%>
+        <h2>No hay libros disponible </h2>
+      <%}%>
+  </div>
+    
+    </body>
+</html>
